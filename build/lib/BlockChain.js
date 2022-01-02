@@ -9,6 +9,7 @@ class BlockChain {
     addBlock(data) {
         const lastBlock = this.getLastBlock();
         const newBlock = Block.mineBlock(lastBlock, data);
+        this.chain.push(newBlock);
         return newBlock;
     }
     isValidChain(chain) {
@@ -25,6 +26,18 @@ class BlockChain {
             }
         }
         return true;
+    }
+    replaceChain(newChain, callBack) {
+        if (newChain.length <= this.chain.length) {
+            callBack ? callBack("new chain is not longer than the current chain!") : null;
+            return;
+        }
+        if (!this.isValidChain(newChain)) {
+            callBack ? callBack("new chain is not valid chain!") : null;
+            return;
+        }
+        this.chain = newChain;
+        callBack ? callBack() : null;
     }
 }
 export default BlockChain;

@@ -21,6 +21,8 @@ class BlockChain {
         const lastBlock = this.getLastBlock();
         const newBlock = Block.mineBlock(lastBlock, data);
         
+        this.chain.push(newBlock);
+
         return newBlock;
     }
 
@@ -46,6 +48,24 @@ class BlockChain {
         }
 
         return true;
+    }
+
+    public replaceChain(newChain: Array<BlockT>, callBack?: (err?: string) => void) {
+
+        if (newChain.length <= this.chain.length) {
+
+            callBack ? callBack("new chain is not longer than the current chain!") : null;
+            return;
+        }
+
+        if (!this.isValidChain(newChain)) {
+
+            callBack ? callBack("new chain is not valid chain!") : null;
+            return;
+        }
+
+        this.chain = newChain;
+        callBack ? callBack() : null;
     }
 }
 
