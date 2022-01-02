@@ -5,10 +5,10 @@ import BlockT from '../@types/Block';
 
 class Block {
 
-    private timestamp: number;
-    private last_hash: string;
-    private hash: string;
-    private data: BlockData;
+    public timestamp: number;
+    public last_hash: string;
+    public hash: string;
+    public data: BlockData;
 
     constructor(timestamp: number, last_hash: string, hash: string, data: BlockData) {
 
